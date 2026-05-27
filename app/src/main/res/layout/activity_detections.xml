@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,8 +13,8 @@
         android:layout_width="112dp"
         android:layout_height="106dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/hardhat_logo_alt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hardhat_logo" />
@@ -28,7 +29,6 @@
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HardhatLogo" />
 
@@ -39,6 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@null"
+        android:contentDescription="@string/back_button_alt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_button" />
@@ -51,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:ems="10"
-        android:hint="Search detections..."
+        android:hint="@string/search_detections_hint"
         android:inputType="text"
         app:layout_constraintEnd_toStartOf="@+id/filterBtn"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,12 +64,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/filter_button_alt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchTextBox"
         app:layout_constraintTop_toBottomOf="@+id/DetectionsText"
         app:srcCompat="@drawable/filter_svg" />
 
-    <!-- FIX: removed marginTop="220dp", now properly anchored below searchTextBox -->
+    <!-- Detection list — hidden when empty -->
     <ListView
         android:id="@+id/lvDetectionsList"
         android:layout_width="0dp"
@@ -76,11 +78,83 @@
         android:layout_marginTop="8dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10sp"
-        android:padding="10dp"
         android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/exportReportBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchTextBox" />
+
+    <!-- Empty state — shown when no detections exist -->
+    <LinearLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/exportReportBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchTextBox">
+
+        <ImageView
+            android:id="@+id/emptyStateIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/empty_detections_icon_alt"
+            app:srcCompat="@drawable/ic_empty_detections" />
+
+        <TextView
+            android:id="@+id/emptyStateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/empty_detections_title"
+            android:textColor="@color/navy_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/emptyStateSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4"
+            android:text="@string/empty_detections_subtitle"
+            android:textColor="@color/grey"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/emptyScanNowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/navy_blue"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="@string/empty_detections_cta"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/exportReportBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/darker_baby_blue"
+        android:text="@string/export_report"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
